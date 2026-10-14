@@ -44,8 +44,14 @@ def stable_softmax(logits):
     softmax = num/deno 
     return softmax
 
-# Step 6 - one_hot (not yet solved)
-# TODO: implement
+# Step 6 - one_hot
+def one_hot(labels, num_classes):
+    # TODO: convert integer labels into a (N, num_classes) one-hot float matrix
+    hot_encoded = np.zeros(shape = (len(labels), num_classes))
+    for i in range(len(labels)):
+        hot_encoded[i, labels[i]] = 1.0
+
+    return hot_encoded
 
 # Step 7 - gather_true_class_probs (not yet solved)
 # TODO: implement
