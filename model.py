@@ -106,8 +106,31 @@ def output_spatial_size(input_size, kernel, stride, padding):
     # TODO: return the conv/pool output spatial dimension from input_size, kernel, stride, padding
     return (input_size + 2* padding - kernel) // stride + 1
 
-# Step 15 - im2col (not yet solved)
-# TODO: implement
+# Step 15 - im2col
+import numpy as np
+
+def im2col(images, kernel_h, kernel_w, stride, padding):
+    N, C, H, W = images.shape
+    out_h = output_spatial_size(H, kernel_h, stride, padding)
+    out_w = output_spatial_size(W, kernel_w, stride, padding)
+
+    output = np.zeros((N * out_h * out_w, C * kernel_h * kernel_w), dtype=images.dtype)
+    images_padded = pad_2d(images, padding)
+
+    k = 0
+    for batch in range(N):
+        for y in range(out_h):
+            for x in range(out_w):
+                start_y = y * stride
+                start_x = x * stride
+                end_y = start_y + kernel_h
+                end_x = start_x + kernel_w
+                
+                patch = images_padded[batch, :, start_y:end_y, start_x:end_x]
+                output[k, :] = patch.flatten()
+                k += 1
+
+    return output
 
 # Step 16 - col2im (not yet solved)
 # TODO: implement
