@@ -171,7 +171,7 @@ def conv2d_forward(x, weights, bias, stride, padding):
     w_flat = weights.reshape(C_out, -1)
     output = x_flat @ w_flat.T + bias
     output_reshape = output.reshape(N, out_h, out_w, C_out).transpose(0,3,1,2)
-    cache = {'cols': output_reshape, 'kernel_h':kernel_h,'kernel_w':kernel_w,'padding':padding,'stride':stride, 'weights':weights,'x_shape':x.shape}
+    cache = {'cols': x_flat, 'kernel_h':kernel_h,'kernel_w':kernel_w,'padding':padding,'stride':stride, 'weights':weights,'x_shape':x.shape}
     return output_reshape, cache
 
 # Step 18 - conv2d_grad_input
