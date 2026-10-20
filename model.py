@@ -282,8 +282,12 @@ def relu_forward(x):
     cache = {'x': x}
     return output, cache
 
-# Step 26 - relu_backward (not yet solved)
-# TODO: implement
+# Step 26 - relu_backward
+def relu_backward(d_out, cache):
+    # TODO: mask the upstream gradient by the positive entries of the cached input.
+    x = cache['x']
+    output = d_out * (x > 0)
+    return output
 
 # Step 27 - flatten_forward (not yet solved)
 # TODO: implement
