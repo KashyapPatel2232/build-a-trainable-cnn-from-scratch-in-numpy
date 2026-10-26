@@ -467,8 +467,16 @@ def backward_conv_block(dout, cache):
     dx, dW, db = conv2d_backward(out_maxpool, cache['conv_cache'])
     return dx, dW, db
 
-# Step 49 - backward_classifier_block (not yet solved)
-# TODO: implement
+# Step 49 - backward_classifier_block
+def backward_classifier_block(dlogits, cache):
+    # TODO: backprop through fc2 -> relu -> fc1 -> flatten using the cached values
+    dx2, dW2, db2 = linear_backward(dlogits, cache['fc2_cache'])
+    fc2 = {'dW':dW2, 'db':db2}
+    dx_relu = relu_backward(dx2, cache['relu_cache'])
+    dx1, dW1, db1 = linear_backward(dx_relu, cache['fc1_cache'])
+    fc1 = {'dW':dW1, 'db':db1}
+    output_final = flatten_backward(dx1, cache['flatten_cache'])
+    return {'dx':output_final,'fc1':fc1,'fc2':fc2}
 
 # Step 50 - lenet_backward (not yet solved)
 # TODO: implement
