@@ -459,8 +459,13 @@ def lenet_forward(x, params):
     cache = {'block1':cache_block1, 'block2':cache_block2, 'classifier':cache_classifier}
     return output_classifier, cache
 
-# Step 48 - backward_conv_block (not yet solved)
-# TODO: implement
+# Step 48 - backward_conv_block
+def backward_conv_block(dout, cache):
+    # TODO: backprop dout through the cached pool, relu, and conv layers in reverse order.
+    out_relu = relu_backward(dout, cache['relu_cache'])
+    out_maxpool = maxpool2d_backward(out_relu, cache['pool_cache'])
+    dx, dW, db = conv2d_backward(out_maxpool, cache['conv_cache'])
+    return dx, dW, db
 
 # Step 49 - backward_classifier_block (not yet solved)
 # TODO: implement
