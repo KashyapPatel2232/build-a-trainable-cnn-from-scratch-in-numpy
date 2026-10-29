@@ -514,8 +514,19 @@ def build_synthetic_image_dataset(num_samples, num_classes, image_size, in_chann
 def shuffle_indices(n, seed=0):
     return np.random.RandomState(seed).permutation(n)
 
-# Step 54 - train_test_split (not yet solved)
-# TODO: implement
+# Step 54 - train_test_split
+def train_test_split(x, y, test_fraction=0.2, seed=0):
+    # TODO: partition x and y into train and test halves using a shared shuffled order.
+    order = shuffle_indices(len(x), seed)
+    n_train = len(x) - int(test_fraction * len(x))
+    x = x[order]
+    y = y[order]
+    x_train = x[0:n_train]
+    y_train = y[0:n_train]
+    x_test = x[n_train:]
+    y_test = y[n_train:]
+
+    return x_train, y_train, x_test, y_test
 
 # Step 55 - iterate_minibatches (not yet solved)
 # TODO: implement
