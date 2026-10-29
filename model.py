@@ -510,8 +510,9 @@ def build_synthetic_image_dataset(num_samples, num_classes, image_size, in_chann
         x[i] += shift
     return x,y
 
-# Step 53 - shuffle_indices (not yet solved)
-# TODO: implement
+# Step 53 - shuffle_indices
+def shuffle_indices(n, seed=0):
+    return np.random.RandomState(seed).permutation(n)
 
 # Step 54 - train_test_split (not yet solved)
 # TODO: implement
